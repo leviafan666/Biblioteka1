@@ -20,6 +20,17 @@ router.get('/authorize', (req, res) => {
   });
 });
 
+router.get('/select', (req, res) => {
+  db.any("SELECT * FROM users")
+  .then(data => {
+      res.send(data);
+  })
+  .catch(err => {
+    console.log(err);
+    res.send("Error");
+  });
+});
+
 router.get('/delete', (req, res) => {
   db.none("DELETE FROM users WHERE id = $1", req.query.id)
   .then(() => {
